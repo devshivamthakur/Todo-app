@@ -3,6 +3,7 @@ package com.example.todo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +20,9 @@ import androidx.navigation.NavAction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.util.ArrayList;
 
 import static com.example.todo.MainActivity.c;
@@ -29,11 +33,17 @@ public class recycler_adapter extends RecyclerView.Adapter<recycler_adapter.View
 Context context;
 View v;  // to navigate after any  operation (delete, update)
     NavController navController=null;
+    LottieAnimationView lottieAnimationView;
 
-    public recycler_adapter(ArrayList<todo_type> todo_data_arraylist, Context context,View v) {
+
+    public recycler_adapter(ArrayList<todo_type> todo_data_arraylist, Context context,View v,LottieAnimationView lottieAnimationView) {
         this.todo_data_arraylist = todo_data_arraylist;
         this.context = context;
         this.v=v;
+        this.lottieAnimationView=lottieAnimationView;
+        if(todo_data_arraylist.isEmpty()){
+            Log.e("pass", String.valueOf(todo_data_arraylist));
+        }
 
     }
 
@@ -114,14 +124,27 @@ View v;  // to navigate after any  operation (delete, update)
                 }
             });
         }
+        if(todo_data_arraylist.isEmpty()){
+            lottieAnimationView.setVisibility(View.VISIBLE);
+
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        if(todo_data_arraylist!=null)
-                       return todo_data_arraylist.size();
-        else return -1;
+        if(todo_data_arraylist!=null){
+            if(!todo_data_arraylist.isEmpty()){
+                lottieAnimationView.setVisibility(View.GONE);
+            }
+            if(todo_data_arraylist.isEmpty()){
+                lottieAnimationView.setVisibility(View.VISIBLE);
+                Log.e("pass","emp2");
+            }
+            Log.e("pass","emp");
+            return todo_data_arraylist.size();
+        }
+            return -1;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

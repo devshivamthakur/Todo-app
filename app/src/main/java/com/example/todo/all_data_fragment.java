@@ -1,5 +1,6 @@
 package com.example.todo;
 
+import android.animation.Animator;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,9 +18,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -33,12 +36,15 @@ ArrayList<todo_type> arrayList;  // transfer to  adapter
 NavController navController=null;  // used to navigate fragment
     recycler_adapter adapter;
     Toolbar toolbar;
-
+Thread t;
+LottieAnimationView lottieAnimationView;
+RelativeLayout relativeLayout;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     navController= Navigation.findNavController(view);
     add_task_btn=view.findViewById(R.id.add_task_btn);
     add_task_btn.setOnClickListener(this::onClick);
+    relativeLayout=view.findViewById(R.id.relative_layout);
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -49,14 +55,38 @@ NavController navController=null;  // used to navigate fragment
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_all_data_fragment, container, false);
         recyclerView=v.findViewById(R.id.todo_recycler);
+        lottieAnimationView=v.findViewById(R.id.lottie_empty);
+        lottieAnimationView.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+           relativeLayout.setBackgroundColor(getResources().getColor(R.color.black));
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                relativeLayout.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         arrayList=getAlldata();
-        adapter=new recycler_adapter(arrayList,getContext(),v);
+        adapter=new recycler_adapter(arrayList,getContext(),v,lottieAnimationView);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         toolbar=v.findViewById(R.id.toolbar);
@@ -110,6 +140,4 @@ NavController navController=null;  // used to navigate fragment
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

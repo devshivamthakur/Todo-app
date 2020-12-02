@@ -21,29 +21,36 @@
             android:textStyle="bold|normal"
             />
     </androidx.appcompat.widget.Toolbar>
-<com.airbnb.lottie.LottieAnimationView
-    android:id="@+id/lottie_empty"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@id/add_task_btn"
-    android:layout_below="@id/toolbar"
-    android:visibility="gone"
-    app:lottie_loop="true"
-    app:lottie_rawRes="@raw/empty_data"/>
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/todo_recycler"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/toolbar"/>
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/add_task_btn"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentBottom="true"
-    android:layout_marginEnd="20dp"
-    android:layout_marginBottom="30dp"
-    android:padding="10dp"
-    android:src="@drawable/ic_baseline_note_add_24"
-    app:useCompatPadding="true"/>
+    <RelativeLayout
+        android:id="@+id/relative_layout"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/add_task_btn"
+            android:visibility="gone"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/empty_data"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/todo_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_task_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="30dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_note_add_24"
+            app:useCompatPadding="true"/>
+    </RelativeLayout>
+
 </RelativeLayout>
