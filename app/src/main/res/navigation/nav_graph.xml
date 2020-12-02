@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/all_data_fragment">
+
+    <fragment
+        android:id="@+id/all_data_fragment"
+        android:name="com.example.todo.all_data_fragment"
+        android:label="fragment_all_data_fragment"
+        tools:layout="@layout/fragment_all_data_fragment" >
+        <action
+            android:id="@+id/action_all_data_fragment_to_fill_work_name_fragment"
+            app:destination="@id/fill_work_name_fragment" />
+        <action
+            android:id="@+id/action_all_data_fragment_self"
+            app:destination="@id/all_data_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fill_work_name_fragment"
+        android:name="com.example.todo.fill_work_name_fragment"
+        android:label="fill_work_name"
+        tools:layout="@layout/fill_work_name" >
+        <action
+            android:id="@+id/action_fill_work_name_fragment_to_all_data_fragment"
+            app:destination="@id/all_data_fragment" />
+    </fragment>
+</navigation>

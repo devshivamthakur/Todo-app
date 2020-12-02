@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Todo</string>
+    <string name="app_name1"> TODO List</string>
+    <string name="app_name2"> 17 sep</string>
+    <string name="todo">TODO</string>
+    <string name="delete">Delete</string>
+    <string name="Save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="action">:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_you_work_name">enter you work name</string>
+</resources>
