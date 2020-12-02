@@ -12,8 +12,12 @@ import java.util.ArrayList;
 
 public class utils {
     public  static final String work_name_key="WORK NAME KEY";
+    public  static final String completed_task_key="Completed NAME KEY";
     static ArrayList<todo_type>all_work_details;
 
+
+
+    static ArrayList<todo_type> completed_task;
 
 
     static SharedPreferences sharedPreferences;
@@ -77,13 +81,11 @@ public class utils {
         if(null!=t){
             todo_typeArrayList.get(position).setCheck(t.check);
             todo_typeArrayList.get(position).setWork_name(t.work_name);
-            Log.e("update",t.work_name);
             SharedPreferences.Editor editor=sharedPreferences.edit();
             editor.remove(work_name_key);
             Gson g=new Gson();
             editor.putString(work_name_key,g.toJson(todo_typeArrayList));
             editor.commit();
-            Log.e("updata after",todo_typeArrayList.get(position).work_name);
             return true;
         }
         return false;
@@ -111,5 +113,31 @@ public class utils {
     public static void setAll_work_details(ArrayList<todo_type> all_work_details) {
         utils.all_work_details = all_work_details;
     }
+    public static ArrayList<todo_type> getCompleted_task() {
+        Gson gson=new Gson();
+        Type type=new TypeToken<ArrayList<todo_type>>(){}.getType();
+        if(sharedPreferences!=null)
+        {
+            completed_task=gson.fromJson(sharedPreferences.getString(work_name_key,null),type);
+            Log.e("pass","c21");
 
+            return completed_task;
+        }
+        return null;
+    }
+
+    public static boolean setCompleted_task(ArrayList<todo_type> completed_task1) {
+        if(sharedPreferences!=null){
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            editor.remove(completed_task_key);
+            Gson gson=new Gson();
+            editor.putString(completed_task_key,gson.toJson(completed_task1));
+            editor.commit();
+            Log.e("pass","c2");
+            return true;
+        }
+
+
+        return false;
+    }
 }

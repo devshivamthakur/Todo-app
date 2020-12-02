@@ -1,6 +1,5 @@
 package com.example.todo;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,21 +10,29 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 
-public class all_data_fragment extends Fragment implements View.OnClickListener {
+public class all_data_fragment extends Fragment implements View.OnClickListener  {
 RecyclerView recyclerView;
 FloatingActionButton add_task_btn; // button to add task name
-ArrayList<todo_type> arrayList;  // store task related data
+ArrayList<todo_type> arrayList;  // transfer to  adapter
+   static  ArrayList<todo_type> permanantly_stored = null;
 NavController navController=null;  // used to navigate fragment
+    recycler_adapter adapter;
+    Toolbar toolbar;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -35,6 +42,13 @@ NavController navController=null;  // used to navigate fragment
         super.onViewCreated(view, savedInstanceState);
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.action_menu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,11 +56,14 @@ NavController navController=null;  // used to navigate fragment
         View v=inflater.inflate(R.layout.fragment_all_data_fragment, container, false);
         recyclerView=v.findViewById(R.id.todo_recycler);
         arrayList=getAlldata();
-    //    Log.e("update","getdata");
-        recycler_adapter adapter=new recycler_adapter(arrayList,getContext(),v);
+        adapter=new recycler_adapter(arrayList,getContext(),v);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        toolbar=v.findViewById(R.id.toolbar);
+        setHasOptionsMenu(true);
+        toolbar.inflateMenu(R.menu.action_menu);  // to add menu in toolbar
+     toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected); // set click listener
+        permanantly_stored=getAlldata();
         return v ;
     }
 
@@ -55,7 +72,7 @@ NavController navController=null;  // used to navigate fragment
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) {  // when we want add new task
         switch (v.getId()){
             case R.id.add_task_btn:
                 if(navController!=null)
@@ -68,4 +85,34 @@ NavController navController=null;  // used to navigate fragment
 
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        switch (id){
+            case R.id.hide_menu:
+                ArrayList<todo_type>temp=new ArrayList<>();
+                //  ArrayList<todo_type>store_completed_task=new ArrayList<>();
+                for(todo_type t:arrayList){
+                    if(!t.isCheck()){
+                        temp.add(t);
+                    }
+                }
+                utils.setCompleted_task(temp);
+                arrayList.clear();
+                arrayList.addAll(temp);
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.show:
+                arrayList.clear();
+                if(permanantly_stored!=null){
+                    arrayList.addAll(permanantly_stored);
+                    adapter.notifyDataSetChanged();
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }
