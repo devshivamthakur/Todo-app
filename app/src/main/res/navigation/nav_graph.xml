@@ -13,9 +13,7 @@
         <action
             android:id="@+id/action_all_data_fragment_to_fill_work_name_fragment"
             app:destination="@id/fill_work_name_fragment" />
-        <action
-            android:id="@+id/action_all_data_fragment_self"
-            app:destination="@id/all_data_fragment" />
+
     </fragment>
     <fragment
         android:id="@+id/fill_work_name_fragment"
