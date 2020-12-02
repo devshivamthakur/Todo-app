@@ -29,7 +29,7 @@ public class all_data_fragment extends Fragment implements View.OnClickListener 
 RecyclerView recyclerView;
 FloatingActionButton add_task_btn; // button to add task name
 ArrayList<todo_type> arrayList;  // transfer to  adapter
-   static  ArrayList<todo_type> permanantly_stored = null;
+     ArrayList<todo_type> permanantly_stored = null;
 NavController navController=null;  // used to navigate fragment
     recycler_adapter adapter;
     Toolbar toolbar;
@@ -63,7 +63,6 @@ NavController navController=null;  // used to navigate fragment
         setHasOptionsMenu(true);
         toolbar.inflateMenu(R.menu.action_menu);  // to add menu in toolbar
      toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected); // set click listener
-        permanantly_stored=getAlldata();
         return v ;
     }
 
@@ -105,10 +104,8 @@ NavController navController=null;  // used to navigate fragment
                 break;
             case R.id.show:
                 arrayList.clear();
-                if(permanantly_stored!=null){
-                    arrayList.addAll(permanantly_stored);
-                    adapter.notifyDataSetChanged();
-                }
+                arrayList.addAll(getAlldata());
+                adapter.notifyDataSetChanged();
                 break;
         }
         return super.onOptionsItemSelected(item);
