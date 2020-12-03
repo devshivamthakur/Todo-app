@@ -12,4 +12,5 @@
     <string name="enter_you_work_name">enter you work name</string>
     <string name="hide">hide all completed task</string>
     <string name="show">show all task</string>
+    <string name="completed">Show Only Completed Task</string>
 </resources>

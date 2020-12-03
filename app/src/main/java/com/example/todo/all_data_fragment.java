@@ -1,7 +1,4 @@
 package com.example.todo;
-
-
-import android.animation.ValueAnimator;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -98,6 +95,16 @@ RelativeLayout relativeLayout;
         }
     }
 
+    /*
+    * Todo: 1) whenever clicked hide completed task: we split completed and uncompleted task
+    *                                              after doing this , we clear arraylist that list we passed in recycler adapter
+    *                                             and add all uncompleted task in arraylist. and call method notifyDataSetChanged(). this
+    *                                               method can refreshed recycler View's data.
+    *     2) show all task: simply first clear all data from arraylist because its have uncompleted task or any other data.
+    *     so after cleared arrylist add all data (uncompleted & completed) into array list.
+    *   3) show completed  task : we request completed data from utils class and clear arraylist . after cleared arraylist we add all
+    *              completed task in recycler view's related array list. call method of adapter.
+    *  */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id=item.getItemId();
@@ -110,7 +117,6 @@ RelativeLayout relativeLayout;
                         temp.add(t);
                     }
                 }
-                utils.setCompleted_task(temp);
                 arrayList.clear();
                 arrayList.addAll(temp);
                 adapter.notifyDataSetChanged();
@@ -122,9 +128,20 @@ RelativeLayout relativeLayout;
                 if(!arrayList.isEmpty()){
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.white));
                 }
-
+                break;
+            case R.id.completed_menu:
+                Log.e("test","completed");
+                arrayList.clear();
+                ArrayList<todo_type>temp2=getCompleted_task();
+                arrayList.addAll(temp2);
+                adapter.notifyDataSetChanged();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+    public ArrayList<todo_type>getCompleted_task(){
+        return utils.getCompleted_task();
+    }
+
+
 }

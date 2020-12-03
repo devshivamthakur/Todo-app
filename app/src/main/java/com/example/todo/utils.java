@@ -14,12 +14,7 @@ public class utils {
     public  static final String work_name_key="WORK NAME KEY";
     public  static final String completed_task_key="Completed NAME KEY";
     static ArrayList<todo_type>all_work_details;
-
-
-
-    static ArrayList<todo_type> completed_task;
-
-
+    static ArrayList<todo_type> completed_task=new ArrayList<>();
     static SharedPreferences sharedPreferences;
     private static utils instance;
     static Context context;
@@ -118,26 +113,63 @@ public class utils {
         Type type=new TypeToken<ArrayList<todo_type>>(){}.getType();
         if(sharedPreferences!=null)
         {
-            completed_task=gson.fromJson(sharedPreferences.getString(work_name_key,null),type);
-            Log.e("pass","c21");
+            completed_task=gson.fromJson(sharedPreferences.getString(completed_task_key,null),type);
+            for(todo_type t:completed_task){
+                Log.e("test5 +name",t.work_name);
+            }
 
             return completed_task;
         }
         return null;
     }
 
-    public static boolean setCompleted_task(ArrayList<todo_type> completed_task1) {
+    public static boolean setCompleted_task(todo_type t) {
+        ArrayList<todo_type>temp=getCompleted_task();
+
         if(sharedPreferences!=null){
+            if(!temp.isEmpty()){
+                for(todo_type t1:temp){
+                    if(t1.work_name.equals(t.work_name)){
+                        return  true;
+                    }
+                }
+                temp.add(t);
+            }else {
+                temp.add(t);
+            }
             SharedPreferences.Editor editor=sharedPreferences.edit();
             editor.remove(completed_task_key);
             Gson gson=new Gson();
-            editor.putString(completed_task_key,gson.toJson(completed_task1));
+            editor.putString(completed_task_key,gson.toJson(temp));
             editor.commit();
-            Log.e("pass","c2");
+
             return true;
         }
 
 
+        return false;
+    }
+    public static boolean remove_from_completed_task(todo_type t){
+        ArrayList<todo_type>todo_types=getCompleted_task();
+        if (t!=null){
+            try{
+                for(todo_type t1: todo_types){
+                    if(t.work_name.equals(t1.work_name)){
+                        if(todo_types.remove(t1)){
+                            Gson gson=new Gson();
+                            SharedPreferences.Editor  editor=sharedPreferences.edit();
+                            editor.remove(completed_task_key);
+                            editor.putString(completed_task_key,gson.toJson(todo_types));
+                            editor.commit();
+                            return true;
+                        }
+                    }
+                }
+            }catch (Exception e){
+
+            }
+
+        }
         return false;
     }
 }

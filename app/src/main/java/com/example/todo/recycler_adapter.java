@@ -77,8 +77,14 @@ RelativeLayout relativeLayout;
                             int id=item.getItemId();
                             switch (id){
                                 case R.id.save:
+                                    /*
+                                    * TODO: save btn: whenever click save on any task if you do any changes or not.
+                                    *  it will simply update values in data base.
+                                    * and after updating values, updated value will be added in adapter related array list.
+                                    * and . checking the task is completed or not. if completed than task added in completed task.
+                                    * if the task is not completed (suppose after change it value) the if task is available in completed than remove it from completed task list.
+                                    *  */
                                     boolean result_of_cb=holder.checkBox.isChecked();
-
                                     String temp_wn;
                                         temp_wn=    holder.work_name.getText().toString();
                                     if(utils.getInstance(c).update_data(new todo_type(temp_wn,result_of_cb),position)){
@@ -89,8 +95,14 @@ RelativeLayout relativeLayout;
                                         todo_data_arraylist.remove(position);
                                         todo_data_arraylist.add(pos,new todo_type(temp_wn,result_of_cb));
                                         notifyItemChanged(position);
+                                        if(result_of_cb){
+                                            utils.setCompleted_task(todo_data_arraylist.get(position));
+                                            Log.e("test5","passed");
+                                        }else {
+                                            utils.remove_from_completed_task(todo_data_arraylist.get(position));
+                                            Log.e("test5","removed");
+                                        }
                                         Toast.makeText(context,"updated Successfully",Toast.LENGTH_LONG).show();
-
                                     }else {
                                         Toast.makeText(context,"not updated",Toast.LENGTH_LONG).show();
                                           }
