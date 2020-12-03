@@ -1,6 +1,7 @@
 package com.example.todo;
 
-import android.animation.Animator;
+
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -44,7 +44,6 @@ RelativeLayout relativeLayout;
     navController= Navigation.findNavController(view);
     add_task_btn=view.findViewById(R.id.add_task_btn);
     add_task_btn.setOnClickListener(this::onClick);
-    relativeLayout=view.findViewById(R.id.relative_layout);
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -64,29 +63,13 @@ RelativeLayout relativeLayout;
         View v=inflater.inflate(R.layout.fragment_all_data_fragment, container, false);
         recyclerView=v.findViewById(R.id.todo_recycler);
         lottieAnimationView=v.findViewById(R.id.lottie_empty);
-        lottieAnimationView.addAnimatorListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-           relativeLayout.setBackgroundColor(getResources().getColor(R.color.black));
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                relativeLayout.setBackgroundColor(getResources().getColor(R.color.white));
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-        arrayList=getAlldata();
-        adapter=new recycler_adapter(arrayList,getContext(),v,lottieAnimationView);
+        relativeLayout=v.findViewById(R.id.relative_layout);
+        try {
+            arrayList=getAlldata();
+        }catch (Exception e){
+            Log.e("exception",e.getMessage().toUpperCase());
+        }
+        adapter=new recycler_adapter(arrayList,getContext(),v,lottieAnimationView,relativeLayout);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         toolbar=v.findViewById(R.id.toolbar);
@@ -136,6 +119,10 @@ RelativeLayout relativeLayout;
                 arrayList.clear();
                 arrayList.addAll(getAlldata());
                 adapter.notifyDataSetChanged();
+                if(!arrayList.isEmpty()){
+                    relativeLayout.setBackgroundColor(getResources().getColor(R.color.white));
+                }
+
                 break;
         }
         return super.onOptionsItemSelected(item);

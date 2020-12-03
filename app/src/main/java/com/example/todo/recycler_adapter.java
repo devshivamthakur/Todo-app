@@ -2,6 +2,8 @@ package com.example.todo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.content.res.Resources.Theme;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +14,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.navigation.NavAction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,6 +29,8 @@ import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.ArrayList;
 
+import static androidx.core.content.res.ResourcesCompat.getColor;
+import static androidx.core.content.res.ResourcesCompat.getDrawable;
 import static com.example.todo.MainActivity.c;
 
 
@@ -34,17 +40,15 @@ Context context;
 View v;  // to navigate after any  operation (delete, update)
     NavController navController=null;
     LottieAnimationView lottieAnimationView;
+Thread t;
+RelativeLayout relativeLayout;
 
-
-    public recycler_adapter(ArrayList<todo_type> todo_data_arraylist, Context context,View v,LottieAnimationView lottieAnimationView) {
+    public recycler_adapter(ArrayList<todo_type> todo_data_arraylist, Context context, View v, LottieAnimationView lottieAnimationView, RelativeLayout relativeLayout) {
         this.todo_data_arraylist = todo_data_arraylist;
         this.context = context;
         this.v=v;
         this.lottieAnimationView=lottieAnimationView;
-        if(todo_data_arraylist.isEmpty()){
-            Log.e("pass", String.valueOf(todo_data_arraylist));
-        }
-
+        this.relativeLayout=relativeLayout;
     }
 
 
@@ -124,11 +128,6 @@ View v;  // to navigate after any  operation (delete, update)
                 }
             });
         }
-        if(todo_data_arraylist.isEmpty()){
-            lottieAnimationView.setVisibility(View.VISIBLE);
-
-        }
-
     }
 
     @Override
@@ -136,11 +135,14 @@ View v;  // to navigate after any  operation (delete, update)
         if(todo_data_arraylist!=null){
             if(!todo_data_arraylist.isEmpty()){
                 lottieAnimationView.setVisibility(View.GONE);
+                relativeLayout.setBackgroundResource(R.color.white);
             }
             if(todo_data_arraylist.isEmpty()){
                 lottieAnimationView.setVisibility(View.VISIBLE);
+                relativeLayout.setBackgroundResource(R.drawable.bg);
                 Log.e("pass","emp2");
             }
+
             Log.e("pass","emp");
             return todo_data_arraylist.size();
         }
