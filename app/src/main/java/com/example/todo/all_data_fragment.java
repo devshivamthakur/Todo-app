@@ -122,14 +122,12 @@ RelativeLayout relativeLayout;
                         }
                     }
                     int ctask=arrayList.size()-temp.size();
-                    Log.e("test6", String.valueOf(ctask));
                     if(ctask!=0){
                         item.setTitle(getResources().getString(R.string.completed));
                     }
 
                 }else if(tittle.equals("Show Only Completed Task")) {
                    temp=getCompleted_task();
-                    Log.e("test6", String.valueOf(temp));
                     if(temp==null){
                        temp=new ArrayList<>();
                    }else {
