@@ -59,15 +59,20 @@ public class utils {
     }
     public boolean add_data(todo_type t){
         ArrayList<todo_type> todo_typeArrayList=getAll_work_details();
-        if(null!=t){
-            if(todo_typeArrayList.add(t)){
-                Gson gson=new Gson();
-                SharedPreferences.Editor editor=sharedPreferences.edit();
-                editor.remove(work_name_key);
-                editor.putString(work_name_key,gson.toJson(todo_typeArrayList));
-                editor.commit();
-                return true;
+        try{
+            if(null!=t){
+                if(todo_typeArrayList.add(t)){
+                    Gson gson=new Gson();
+                    SharedPreferences.Editor editor=sharedPreferences.edit();
+                    editor.remove(work_name_key);
+                    editor.putString(work_name_key,gson.toJson(todo_typeArrayList));
+                    editor.commit();
+                    return true;
+                }
             }
+
+        }catch (NullPointerException e){
+
         }
         return false;
     }
@@ -88,19 +93,23 @@ public class utils {
     public boolean remove_from_todo_list(todo_type t)
     {
         ArrayList<todo_type>todo_typeArrayList=getAll_work_details();
-        if(t!=null){
-            for(todo_type temp_O:todo_typeArrayList){
-                if(temp_O.getWork_name().equals(t.getWork_name())){
-                    if(todo_typeArrayList.remove(temp_O)){
-                        Gson gson=new Gson();
-                        SharedPreferences.Editor editor=sharedPreferences.edit();
-                        editor.remove(work_name_key);
-                        editor.putString(work_name_key,gson.toJson(todo_typeArrayList));
-                        editor.commit();
-                        return true;
+        try {
+            if(t!=null){
+                for(todo_type temp_O:todo_typeArrayList){
+                    if(temp_O.getWork_name().equals(t.getWork_name())){
+                        if(todo_typeArrayList.remove(temp_O)){
+                            Gson gson=new Gson();
+                            SharedPreferences.Editor editor=sharedPreferences.edit();
+                            editor.remove(work_name_key);
+                            editor.putString(work_name_key,gson.toJson(todo_typeArrayList));
+                            editor.commit();
+                            return true;
+                        }
                     }
                 }
             }
+        }catch (Exception e){
+
         }
         return false;
     }
@@ -114,10 +123,7 @@ public class utils {
         if(sharedPreferences!=null)
         {
             completed_task=gson.fromJson(sharedPreferences.getString(completed_task_key,null),type);
-            for(todo_type t:completed_task){
-                Log.e("test5 +name",t.work_name);
-            }
-
+            Log.e("test61", String.valueOf(completed_task));
             return completed_task;
         }
         return null;
@@ -125,25 +131,32 @@ public class utils {
 
     public static boolean setCompleted_task(todo_type t) {
         ArrayList<todo_type>temp=getCompleted_task();
-
-        if(sharedPreferences!=null){
-            if(!temp.isEmpty()){
-                for(todo_type t1:temp){
-                    if(t1.work_name.equals(t.work_name)){
-                        return  true;
+        if(temp==null){
+            temp=new ArrayList<>();
+        }
+        try{
+            if(sharedPreferences!=null){
+                if(!temp.isEmpty()){
+                    for(todo_type t1:temp){
+                        if(t1.work_name.equals(t.work_name)){
+                            return  true;
+                        }
                     }
+                    temp.add(t);
+                }else {
+                    temp.add(t);
                 }
-                temp.add(t);
-            }else {
-                temp.add(t);
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.remove(completed_task_key);
+                Gson gson=new Gson();
+                editor.putString(completed_task_key,gson.toJson(temp));
+                editor.commit();
+                Log.e("test61", String.valueOf(temp));
+                return true;
             }
-            SharedPreferences.Editor editor=sharedPreferences.edit();
-            editor.remove(completed_task_key);
-            Gson gson=new Gson();
-            editor.putString(completed_task_key,gson.toJson(temp));
-            editor.commit();
 
-            return true;
+        }catch (Exception e){
+
         }
 
 
@@ -151,23 +164,28 @@ public class utils {
     }
     public static boolean remove_from_completed_task(todo_type t){
         ArrayList<todo_type>todo_types=getCompleted_task();
-        if (t!=null){
-            try{
-                for(todo_type t1: todo_types){
-                    if(t.work_name.equals(t1.work_name)){
-                        if(todo_types.remove(t1)){
-                            Gson gson=new Gson();
-                            SharedPreferences.Editor  editor=sharedPreferences.edit();
-                            editor.remove(completed_task_key);
-                            editor.putString(completed_task_key,gson.toJson(todo_types));
-                            editor.commit();
-                            return true;
+        try {
+            if (t!=null){
+                try{
+                    for(todo_type t1: todo_types){
+                        if(t.work_name.equals(t1.work_name)){
+                            if(todo_types.remove(t1)){
+                                Gson gson=new Gson();
+                                SharedPreferences.Editor  editor=sharedPreferences.edit();
+                                editor.remove(completed_task_key);
+                                editor.putString(completed_task_key,gson.toJson(todo_types));
+                                editor.commit();
+                                return true;
+                            }
                         }
                     }
+                }catch (Exception e){
+
                 }
-            }catch (Exception e){
 
             }
+
+        }catch (Exception e){
 
         }
         return false;

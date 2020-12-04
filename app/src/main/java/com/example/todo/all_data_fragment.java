@@ -110,12 +110,32 @@ RelativeLayout relativeLayout;
         int id=item.getItemId();
         switch (id){
             case R.id.hide_menu:
+                String tittle= String.valueOf(item.getTitle());
                 ArrayList<todo_type>temp=new ArrayList<>();
-                //  ArrayList<todo_type>store_completed_task=new ArrayList<>();
-                for(todo_type t:arrayList){
-                    if(!t.isCheck()){
-                        temp.add(t);
+                ArrayList<todo_type>check_no_of_ctask=new ArrayList<>();
+                if(tittle.equals("hide all completed task")){
+                    //  ArrayList<todo_type>store_completed_task=new ArrayList<>();
+                    for(todo_type t:arrayList){
+                        if(!t.isCheck()){
+                            temp.add(t);
+
+                        }
                     }
+                    int ctask=arrayList.size()-temp.size();
+                    Log.e("test6", String.valueOf(ctask));
+                    if(ctask!=0){
+                        item.setTitle(getResources().getString(R.string.completed));
+                    }
+
+                }else if(tittle.equals("Show Only Completed Task")) {
+                   temp=getCompleted_task();
+                    Log.e("test6", String.valueOf(temp));
+                    if(temp==null){
+                       temp=new ArrayList<>();
+                   }else {
+                       item.setTitle(getResources().getString(R.string.hide));
+                   }
+
                 }
                 arrayList.clear();
                 arrayList.addAll(temp);
@@ -129,12 +149,9 @@ RelativeLayout relativeLayout;
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.white));
                 }
                 break;
-            case R.id.completed_menu:
+            default:
                 Log.e("test","completed");
-                arrayList.clear();
-                ArrayList<todo_type>temp2=getCompleted_task();
-                arrayList.addAll(temp2);
-                adapter.notifyDataSetChanged();
+
                 break;
         }
         return super.onOptionsItemSelected(item);
