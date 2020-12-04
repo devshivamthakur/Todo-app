@@ -5,4 +5,6 @@
     />
     <item android:id="@+id/show"
         android:title="@string/show"/>
+    <item android:id="@+id/delete_all_completed"
+        android:title="@string/delete_all_task"/>
 </menu>

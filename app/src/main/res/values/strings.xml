@@ -13,4 +13,5 @@
     <string name="hide">hide all completed task</string>
     <string name="show">show all task</string>
     <string name="completed">Show Only Completed Task</string>
+    <string name="delete_all_task">Delete All Completed Task</string>
 </resources>

@@ -61,6 +61,11 @@ public class utils {
         ArrayList<todo_type> todo_typeArrayList=getAll_work_details();
         try{
             if(null!=t){
+                for (todo_type t2: todo_typeArrayList){
+                    if(t2.work_name.equals(t.work_name)){
+                        return false;
+                    }
+                }
                 if(todo_typeArrayList.add(t)){
                     Gson gson=new Gson();
                     SharedPreferences.Editor editor=sharedPreferences.edit();
@@ -90,7 +95,7 @@ public class utils {
         }
         return false;
     }
-    public boolean remove_from_todo_list(todo_type t)
+  synchronized   public boolean remove_from_todo_list(todo_type t)
     {
         ArrayList<todo_type>todo_typeArrayList=getAll_work_details();
         try {
@@ -103,7 +108,9 @@ public class utils {
                             editor.remove(work_name_key);
                             editor.putString(work_name_key,gson.toJson(todo_typeArrayList));
                             editor.commit();
+                            Log.e("item",t.work_name);
                             return true;
+
                         }
                     }
                 }
@@ -162,8 +169,9 @@ public class utils {
 
         return false;
     }
-    public static boolean remove_from_completed_task(todo_type t){
+   synchronized public static boolean remove_from_completed_task(todo_type t){
         ArrayList<todo_type>todo_types=getCompleted_task();
+       Log.e("item1",t.work_name);
         try {
             if (t!=null){
                 try{
@@ -190,4 +198,19 @@ public class utils {
         }
         return false;
     }
+    public  boolean remove_all_completed_task(Boolean t){
+        if(t){
+            ArrayList<todo_type>todo_types=getCompleted_task();
+            if(todo_types!=null){
+                for(int i=0;i<todo_types.size();i++){
+                    remove_from_completed_task(todo_types.get(i));
+                    remove_from_todo_list(todo_types.get(i));
+                }
+                return true;
+            }
+
+        }
+        return false;
+    }
+
 }

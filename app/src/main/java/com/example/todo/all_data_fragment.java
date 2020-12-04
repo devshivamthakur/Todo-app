@@ -1,8 +1,10 @@
 package com.example.todo;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,12 +19,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+
+import static com.example.todo.MainActivity.c;
 
 
 public class all_data_fragment extends Fragment implements View.OnClickListener  {
@@ -152,10 +158,33 @@ RelativeLayout relativeLayout;
                     relativeLayout.setBackgroundColor(getResources().getColor(R.color.white));
                 }
                 break;
-            default:
-                Log.e("test","completed");
+            case R.id.delete_all_completed:
+                           AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+                           builder.setMessage("Do you want to delete permanently all Completed task")
+                                   .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                       @Override
+                                       public void onClick(DialogInterface dialog, int which) {
+                                          if(utils.getInstance(c).remove_all_completed_task(true)) {
+                                              Toast.makeText(getContext(),"Successfully Deleted",Toast.LENGTH_LONG).show();
+                                              ArrayList<todo_type>temp=new ArrayList<>();
+                                              temp=getAlldata();
+                                              Log.e("show me",String.valueOf(temp));
+                                              arrayList.clear();
+                                              arrayList.addAll(utils.getAll_work_details());
+                                              adapter.notifyDataSetChanged();
+                                          }
+                                       }
+                                   })
+                                   .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                       @Override
+                                       public void onClick(DialogInterface dialog, int which) {
+                                           dialog.cancel();
 
-                break;
+                                       }
+                                   });
+                           builder.create().show();
+
+                 break;
         }
         return super.onOptionsItemSelected(item);
     }

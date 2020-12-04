@@ -108,16 +108,23 @@ RelativeLayout relativeLayout;
                                           }
                                     break;
                                 case R.id.delete:
-                                    if(utils.getInstance(c).remove_from_todo_list(todo_data_arraylist.get(position))){
-                                        /* TODO: remove data form recycler View*/
-                                        int index=position;
-                                        todo_data_arraylist.remove(position);
-                                        notifyItemRemoved(position);
+                                    try {
+                                        Log.e("pos", String.valueOf(position));
+                                        if(utils.getInstance(c).remove_from_todo_list(todo_data_arraylist.get(position))){
+
+                                            /* TODO: remove data form recycler View*/
+                                            int index=position;
+                                            todo_data_arraylist.remove(position);
+                                            notifyItemRemoved(position);
+                                              notifyDataSetChanged();
+                                        }
+                                        else {
+                                            Toast.makeText(context,"not Deleted",Toast.LENGTH_LONG).show();
+                                        }
+                                    }catch (Exception e){
 
                                     }
-                                    else {
-                                        Toast.makeText(context,"not Deleted",Toast.LENGTH_LONG).show();
-                                    }
+
                                     break;
                                 case R.id.edit:
                                     Bundle  bundle=new Bundle();
