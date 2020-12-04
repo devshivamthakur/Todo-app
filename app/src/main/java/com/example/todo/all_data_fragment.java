@@ -96,14 +96,14 @@ RelativeLayout relativeLayout;
     }
 
     /*
-    * Todo: 1) whenever clicked hide completed task: we split completed and uncompleted task
+    * Todo: 1) whenever clicked hide completed task:1) for hide we split completed and uncompleted task
     *                                              after doing this , we clear arraylist that list we passed in recycler adapter
     *                                             and add all uncompleted task in arraylist. and call method notifyDataSetChanged(). this
     *                                               method can refreshed recycler View's data.
+    *                                              and set tittle=completed task
     *     2) show all task: simply first clear all data from arraylist because its have uncompleted task or any other data.
     *     so after cleared arrylist add all data (uncompleted & completed) into array list.
-    *   3) show completed  task : we request completed data from utils class and clear arraylist . after cleared arraylist we add all
-    *              completed task in recycler view's related array list. call method of adapter.
+    *
     *  */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
