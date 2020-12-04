@@ -102,8 +102,8 @@ RelativeLayout relativeLayout;
     *                                               method can refreshed recycler View's data.
     *                                              and set tittle=completed task
     *     2) show all task: simply first clear all data from arraylist because its have uncompleted task or any other data.
-    *     so after cleared arrylist add all data (uncompleted & completed) into array list.
-    *
+    *     so after cleared arraylist add all data (uncompleted & completed) into array list.
+    *    3) delete all completed task : it wil delete  permanently all completed task from device
     *  */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -121,9 +121,14 @@ RelativeLayout relativeLayout;
 
                         }
                     }
+
+                    /*
+                    * Todo: ctack ( completed task) : it shows how many completed task  available,
+                    * */
                     int ctask=arrayList.size()-temp.size();
+
                     if(ctask!=0){
-                        item.setTitle(getResources().getString(R.string.completed));
+                        item.setTitle(getResources().getString(R.string.completed));  //set menu  item tittle
                     }
 
                 }else if(tittle.equals("Show Only Completed Task")) {
