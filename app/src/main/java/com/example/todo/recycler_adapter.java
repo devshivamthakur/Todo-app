@@ -97,10 +97,10 @@ RelativeLayout relativeLayout;
                                         notifyItemChanged(position);
                                         if(result_of_cb){
                                             utils.setCompleted_task(todo_data_arraylist.get(position));
-                                            Log.e("test5","passed");
+                                        //    Log.e("test5","passed");
                                         }else {
                                             utils.remove_from_completed_task(todo_data_arraylist.get(position));
-                                            Log.e("test5","removed");
+                                          //  Log.e("test5","removed");
                                         }
                                         Toast.makeText(context,"updated Successfully",Toast.LENGTH_LONG).show();
                                     }else {
@@ -109,7 +109,7 @@ RelativeLayout relativeLayout;
                                     break;
                                 case R.id.delete:
                                     try {
-                                        Log.e("pos", String.valueOf(position));
+                                     //   Log.e("pos", String.valueOf(position));
                                         if(utils.getInstance(c).remove_from_todo_list(todo_data_arraylist.get(position))){
 
                                             /* TODO: remove data form recycler View*/
@@ -159,10 +159,10 @@ RelativeLayout relativeLayout;
             if(todo_data_arraylist.isEmpty()){
                 lottieAnimationView.setVisibility(View.VISIBLE);
                 relativeLayout.setBackgroundResource(R.drawable.bg);
-                Log.e("pass","emp2");
+              //  Log.e("pass","emp2");
             }
 
-            Log.e("pass","emp");
+           // Log.e("pass","emp");
             return todo_data_arraylist.size();
         }
             return -1;

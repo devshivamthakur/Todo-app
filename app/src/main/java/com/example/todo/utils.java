@@ -51,7 +51,7 @@ public class utils {
         Type  type=new TypeToken<ArrayList<todo_type>>(){}.getType();
         if(sharedPreferences!=null)
         {
-            Log.e("pass1","not null");
+          //  Log.e("pass1","not null");
             all_work_details=gson.fromJson(sharedPreferences.getString(work_name_key,null),type);
             return all_work_details;
         }
@@ -108,7 +108,7 @@ public class utils {
                             editor.remove(work_name_key);
                             editor.putString(work_name_key,gson.toJson(todo_typeArrayList));
                             editor.commit();
-                            Log.e("item",t.work_name);
+                          //  Log.e("item",t.work_name);
                             return true;
 
                         }
@@ -130,7 +130,7 @@ public class utils {
         if(sharedPreferences!=null)
         {
             completed_task=gson.fromJson(sharedPreferences.getString(completed_task_key,null),type);
-            Log.e("test61", String.valueOf(completed_task));
+          //  Log.e("test61", String.valueOf(completed_task));
             return completed_task;
         }
         return null;
@@ -158,7 +158,7 @@ public class utils {
                 Gson gson=new Gson();
                 editor.putString(completed_task_key,gson.toJson(temp));
                 editor.commit();
-                Log.e("test61", String.valueOf(temp));
+             //   Log.e("test61", String.valueOf(temp));
                 return true;
             }
 
@@ -171,7 +171,7 @@ public class utils {
     }
    synchronized public static boolean remove_from_completed_task(todo_type t){
         ArrayList<todo_type>todo_types=getCompleted_task();
-       Log.e("item1",t.work_name);
+   //    Log.e("item1",t.work_name);
         try {
             if (t!=null){
                 try{

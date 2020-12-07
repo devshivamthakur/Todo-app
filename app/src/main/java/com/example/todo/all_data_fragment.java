@@ -70,7 +70,7 @@ RelativeLayout relativeLayout;
         try {
             arrayList=getAlldata();
         }catch (Exception e){
-            Log.e("exception",e.getMessage().toUpperCase());
+          //  Log.e("exception",e.getMessage().toUpperCase());
         }
         adapter=new recycler_adapter(arrayList,getContext(),v,lottieAnimationView,relativeLayout);
         recyclerView.setAdapter(adapter);
@@ -168,7 +168,7 @@ RelativeLayout relativeLayout;
                                               Toast.makeText(getContext(),"Successfully Deleted",Toast.LENGTH_LONG).show();
                                               ArrayList<todo_type>temp=new ArrayList<>();
                                               temp=getAlldata();
-                                              Log.e("show me",String.valueOf(temp));
+                                          //    Log.e("show me",String.valueOf(temp));
                                               arrayList.clear();
                                               arrayList.addAll(utils.getAll_work_details());
                                               adapter.notifyDataSetChanged();
