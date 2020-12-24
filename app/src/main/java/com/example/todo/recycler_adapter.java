@@ -111,7 +111,10 @@ RelativeLayout relativeLayout;
                                     try {
                                      //   Log.e("pos", String.valueOf(position));
                                         if(utils.getInstance(c).remove_from_todo_list(todo_data_arraylist.get(position))){
-
+                                            boolean result_of_cb1=holder.checkBox.isChecked();
+                                            if(result_of_cb1){
+                                                utils.remove_from_completed_task(todo_data_arraylist.get(position));
+                                            }
                                             /* TODO: remove data form recycler View*/
                                             int index=position;
                                             todo_data_arraylist.remove(position);
