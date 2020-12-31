@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="10dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp">
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="5dp">
 
     <CheckBox
         android:id="@+id/checkbox"
@@ -33,6 +33,8 @@
         android:id="@+id/action_btn"
         android:layout_width="30dp"
         android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_centerVertical="true"
          android:src="@drawable/maxresdefault"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="40dp"
