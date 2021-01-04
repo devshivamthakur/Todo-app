@@ -40,6 +40,13 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-
-
+     Long pressed=100L;
+    @Override
+    public void onBackPressed() {
+        if(pressed+1000>System.currentTimeMillis()){
+            super.onBackPressed();
+        }
+        Toast.makeText(this,"press again to exit",Toast.LENGTH_SHORT).show();
+        pressed=System.currentTimeMillis();
+    }
 }

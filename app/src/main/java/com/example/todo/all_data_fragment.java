@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -51,12 +52,6 @@ RelativeLayout relativeLayout;
     }
 
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.action_menu,menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
 
 
     @Override
@@ -79,6 +74,33 @@ RelativeLayout relativeLayout;
         setHasOptionsMenu(true);
         toolbar.inflateMenu(R.menu.action_menu);  // to add menu in toolbar
      toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected); // set click listener
+        Menu menu=toolbar.getMenu();
+        MenuItem Search_menuitem=menu.findItem(R.id.Search_menu);
+        SearchView searchView=(SearchView)Search_menuitem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//                Toast.makeText(getContext(),newText,Toast.LENGTH_SHORT).show();
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                Toast.makeText(getContext(), "closing ", Toast.LENGTH_SHORT).show();
+                arrayList.clear();
+                arrayList.addAll(getAlldata());
+                adapter.notifyDataSetChanged();
+                searchView.onActionViewCollapsed();
+                return true;
+            }
+        });
         return v ;
     }
 
@@ -110,6 +132,7 @@ RelativeLayout relativeLayout;
     *     2) show all task: simply first clear all data from arraylist because its have uncompleted task or any other data.
     *     so after cleared arraylist add all data (uncompleted & completed) into array list.
     *    3) delete all completed task : it wil delete  permanently all completed task from device
+    *    4)Search_menu: it is use for searching in recycler view
     *  */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -185,6 +208,7 @@ RelativeLayout relativeLayout;
                            builder.create().show();
 
                  break;
+
         }
         return super.onOptionsItemSelected(item);
     }

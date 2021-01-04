@@ -57,7 +57,7 @@ public class fill_work_name_fragment extends Fragment {
 
                     if(status){         // this block will run when the data comes for update
                         data=get_tast_name.getText().toString();
-                     if(utils.getInstance(c).update_data(new todo_type(data,checked_task_status),position)){
+                     if(utils.getInstance(c).update_data(new todo_type(data,checked_task_status))){
 //                         Log.e("update", "  "+String.valueOf(position));
                          Toast.makeText(getContext(),"updated successfully",Toast.LENGTH_SHORT).show();
                      }else {

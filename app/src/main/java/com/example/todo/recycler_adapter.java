@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
@@ -34,8 +36,9 @@ import static androidx.core.content.res.ResourcesCompat.getDrawable;
 import static com.example.todo.MainActivity.c;
 
 
-public class recycler_adapter extends RecyclerView.Adapter<recycler_adapter.ViewHolder> {
+public class recycler_adapter extends RecyclerView.Adapter<recycler_adapter.ViewHolder> implements Filterable {
     ArrayList<todo_type>todo_data_arraylist;
+    ArrayList<todo_type>c_todo_data_arraylist;  // copy of task data
 Context context;
 View v;  // to navigate after any  operation (delete, update)
     NavController navController=null;
@@ -49,6 +52,7 @@ RelativeLayout relativeLayout;
         this.v=v;
         this.lottieAnimationView=lottieAnimationView;
         this.relativeLayout=relativeLayout;
+        this.c_todo_data_arraylist=new ArrayList<>(todo_data_arraylist);
     }
 
 
@@ -87,13 +91,18 @@ RelativeLayout relativeLayout;
                                     boolean result_of_cb=holder.checkBox.isChecked();
                                     String temp_wn;
                                         temp_wn=    holder.work_name.getText().toString();
-                                    if(utils.getInstance(c).update_data(new todo_type(temp_wn,result_of_cb),position)){
+
+
+                                    if(utils.getInstance(c).update_data(new todo_type(temp_wn,result_of_cb))){
                                         /* todo:
                                             to update
                                              data*/
                                         int pos=position;
+                                        c_todo_data_arraylist.remove(todo_data_arraylist.get(position));
                                         todo_data_arraylist.remove(position);
                                         todo_data_arraylist.add(pos,new todo_type(temp_wn,result_of_cb));
+                                        c_todo_data_arraylist.add(pos,new todo_type(temp_wn,result_of_cb));
+                                        Toast.makeText(context,String.valueOf(pos),Toast.LENGTH_LONG).show();
                                         notifyItemChanged(position);
                                         if(result_of_cb){
                                             utils.setCompleted_task(todo_data_arraylist.get(position));
@@ -118,6 +127,7 @@ RelativeLayout relativeLayout;
                                             /* TODO: remove data form recycler View*/
                                             int index=position;
                                             todo_data_arraylist.remove(position);
+                                            c_todo_data_arraylist.remove(position);
                                             notifyItemRemoved(position);
                                               notifyDataSetChanged();
                                         }
@@ -169,6 +179,45 @@ RelativeLayout relativeLayout;
             return todo_data_arraylist.size();
         }
             return -1;
+    }
+
+    /* this
+    section used for searching
+    * */
+    Filter filter=new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+//            Toast.makeText(context,constraint,Toast.LENGTH_SHORT).show();
+            ArrayList<todo_type>temp=new ArrayList<>();
+            if(constraint==null||constraint.length()==0){
+                temp.addAll(c_todo_data_arraylist);
+            }
+            else {
+                String search_text=constraint.toString().toLowerCase();
+                Toast.makeText(context,search_text+" form 1",Toast.LENGTH_SHORT).show();
+                for(todo_type t:c_todo_data_arraylist){
+                    if((t.work_name.toLowerCase()).contains(search_text)){
+                        Toast.makeText(context,"yes",Toast.LENGTH_SHORT).show();
+                        temp.add(t);
+                    }
+                }
+            }
+            FilterResults filterResults=new FilterResults();
+            filterResults.values=temp;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            Toast.makeText(context,constraint,Toast.LENGTH_SHORT).show();
+               todo_data_arraylist.clear();
+               todo_data_arraylist.addAll((ArrayList<todo_type>)results.values);
+               notifyDataSetChanged();
+        }
+    };
+    @Override
+    public Filter getFilter() {
+        return filter;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

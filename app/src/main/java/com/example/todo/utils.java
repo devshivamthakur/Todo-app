@@ -81,11 +81,18 @@ public class utils {
         }
         return false;
     }
-    public boolean update_data(todo_type t,int position){
+    public boolean update_data(todo_type t){
         ArrayList<todo_type> todo_typeArrayList=getAll_work_details();
+        int position=-1;
         if(null!=t){
-            todo_typeArrayList.get(position).setCheck(t.check);
-            todo_typeArrayList.get(position).setWork_name(t.work_name);
+            for(todo_type t1:todo_typeArrayList){
+                position++;
+                if(t1.work_name.equals(t.work_name)){
+                    todo_typeArrayList.get(position).setCheck(t.check);
+                    todo_typeArrayList.get(position).setWork_name(t.work_name);
+                     break;
+                }
+            }
             SharedPreferences.Editor editor=sharedPreferences.edit();
             editor.remove(work_name_key);
             Gson g=new Gson();
