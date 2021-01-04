@@ -15,7 +15,7 @@ import androidx.navigation.Navigation;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import static com.example.todo.MainActivity.c;
+import static com.example.todo.nav_activity.c;
 
 public class fill_work_name_fragment extends Fragment {
     boolean status;   // TODO: it is used to check data will edit or save. it used to when the data comes for edit or update

@@ -29,7 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-import static com.example.todo.MainActivity.c;
+import static com.example.todo.nav_activity.c;
 
 
 public class all_data_fragment extends Fragment implements View.OnClickListener  {

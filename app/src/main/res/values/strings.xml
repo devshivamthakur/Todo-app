@@ -14,4 +14,15 @@
     <string name="show">show all task</string>
     <string name="completed">Show Only Completed Task</string>
     <string name="delete_all_task">Delete All Completed Task</string>
+    <string name="title_activity_nav_activity">nav_activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Shivam thakur</string>
+    <string name="nav_header_subtitle">shivamthakurcool01@gmaail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 </resources>
