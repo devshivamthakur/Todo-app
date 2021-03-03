@@ -87,7 +87,7 @@ RelativeLayout relativeLayout;
                                         temp_wn=    holder.work_name.getText().toString();
 
 
-                                    if(utils.getInstance(c).update_data(new todo_type(temp_wn,result_of_cb))){
+                                    if(utils.getInstance(c).update_data(new todo_type(temp_wn,result_of_cb),"")){
                                         /* todo:
                                             to update
                                              data*/
