@@ -10,7 +10,8 @@
   <img src="https://play-lh.googleusercontent.com/rzKvsGxL1c6t2uUmWot-bTSzW8HSCca93KjEAbFXzRSkokyrFUrYZ364f1W2yP2Y3bzC=w526-h296-rw" srcset="https://play-lh.googleusercontent.com/rzKvsGxL1c6t2uUmWot-bTSzW8HSCca93KjEAbFXzRSkokyrFUrYZ364f1W2yP2Y3bzC=w1052-h592-rw 2x" class="T75of B5GQxf" alt="Screenshot image" itemprop="image" data-screenshot-index="3" jsaction="click:IEAdff" role="button" tabindex="0" load="lazy">
  </p>
 
- <img alt="Download" src="https://img.shields.io/badge/download-%2314354C.svg?style=for-the-badge&logo=download&logoColor=white"
+ <img alt="Download" src="https://img.shields.io/badge/download-%2314354C.svg?style=for-the-badge&logo=Android&logoColor=white"
+      
       />
       
 
