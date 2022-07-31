@@ -9,8 +9,8 @@
   <img src="https://play-lh.googleusercontent.com/hRm1TUYD6Pq4vxf3FESP5-shAc9w1XyoN8bpbyIfiSNy3SbfJyao6Ku90iTSR1uMQw=w526-h296-rw" srcset="https://play-lh.googleusercontent.com/hRm1TUYD6Pq4vxf3FESP5-shAc9w1XyoN8bpbyIfiSNy3SbfJyao6Ku90iTSR1uMQw=w1052-h592-rw 2x" class="T75of B5GQxf" alt="Screenshot image" itemprop="image" data-screenshot-index="2" jsaction="click:IEAdff" role="button" tabindex="0" load="lazy">
   <img src="https://play-lh.googleusercontent.com/rzKvsGxL1c6t2uUmWot-bTSzW8HSCca93KjEAbFXzRSkokyrFUrYZ364f1W2yP2Y3bzC=w526-h296-rw" srcset="https://play-lh.googleusercontent.com/rzKvsGxL1c6t2uUmWot-bTSzW8HSCca93KjEAbFXzRSkokyrFUrYZ364f1W2yP2Y3bzC=w1052-h592-rw 2x" class="T75of B5GQxf" alt="Screenshot image" itemprop="image" data-screenshot-index="3" jsaction="click:IEAdff" role="button" tabindex="0" load="lazy">
  </p>
-
- <img alt="Download" src="https://img.shields.io/badge/download-%2314354C.svg?style=for-the-badge&logo=Android&logoColor=white"/>
+<a href="https://play.google.com/store/apps/details?id=com.shivamthakur.todo">
+ <img alt="Download" src="https://img.shields.io/badge/download-%2314354C.svg?style=for-the-badge&logo=Android&logoColor=white"/></a>
       
 
 
